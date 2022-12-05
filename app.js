@@ -4,18 +4,17 @@ const app = express()
 const port = 3000
 const restaurantList = require('./restaurant.json').results
 
-// require express-handlebars here
+// require express-handlebars here 
 const exphbs = require('express-handlebars')
 
-// setting template engine
+// setting template engine //樣板引擎
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// setting static files
+// setting static files //靜態檔案
 app.use(express.static('public'))
 
-// routes setting
-
+// routes setting //路由設定
 app.get('/', (req, res) => {
   res.render('index', { restaurants: restaurantList })
 })
@@ -34,7 +33,7 @@ app.get('/search', (req, res) => {
 })
 
 
-// start and listen on the Express server
+// start and listen on the Express server //啟動
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`)
 })
