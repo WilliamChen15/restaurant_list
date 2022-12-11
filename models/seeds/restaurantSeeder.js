@@ -1,6 +1,8 @@
 const Restaurant = require('../restaurant')
 const db = require('../../config/mongoose')
+
 db.once('open', () => {
+  // insertMany 會更好嗎?
   Restaurant.create(
     {
       id: 1,

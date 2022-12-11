@@ -1,26 +1,18 @@
 // 引用 Express 與 Express 路由器
 const express = require('express')
+const restaurant = require('../../models/restaurant')
 const router = express.Router()
 
 const Restaurant = require('../../models/restaurant')
 
 //瀏覽特定餐廳
 router.get('/:restaurant_id', (req, res) => {
-  const id = req.params.restaurant_id //toString()
-  return Restaurant.findById(id)
+  const id = req.params.restaurant_id
+  return Restaurant.find({ id }) // mongoose中的findById直接抓出陣列中物件、find抓出的物件則為包含物件的陣列
     .lean()
-    .then(restaurant => res.render('show', { restaurant }))
+    .then(restaurant => res.render('show', { restaurant: restaurant[0] }))
     .catch(error => console.log(error))
 })
-
-// //搜尋
-// router.get('/search', (req, res) => {
-//   const keyword = req.query.keyword
-//   const restaurants = restaurantList.filter(restaurant => {
-//     return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.toLowerCase().includes(keyword.toLowerCase())
-//   })
-//   res.render('index', { restaurants, keyword })
-// })
 
 // //新增
 // //頁面
