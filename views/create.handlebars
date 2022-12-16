@@ -1,0 +1,50 @@
+<div class="create-container">
+  <form action="/" method="POST">
+    <div>
+      <label class="text-secondary" for="name">餐廳名稱:</label><input id="name" style="display: block;" type="text"
+        placeholder="請輸入餐廳名稱" name="name" required>
+    </div>
+    <div>
+      <label class="text-secondary" for="name_en">英文名稱:</label><input id="name_en" style="display: block;" type="text"
+        placeholder="請輸入英文名稱" name="name_en">
+    </div>
+    <div>
+      <label class="text-secondary" for="category">餐廳分類:</label>
+      <input type="text" placeholder="請輸入餐廳類別" list="category-list" id="category" style="display: block;"
+        name="category" required>
+      <datalist id="category-list">
+        {{#each categories}}
+        <option value="{{this}}"> {{this}} </option>
+        {{/each}}
+      </datalist>
+    </div>
+    <div>
+      <label class="text-secondary" for="image">圖片網址:</label><input id="image" style="display: block;" type="text"
+        placeholder="請輸入圖片網址" name="image" required>
+    </div>
+    <div>
+      <label class="text-secondary" for="location">餐廳地址:</label><input id="location" style="display: block;" type="text"
+        placeholder="請輸入餐廳地址" name="location" required>
+    </div>
+    <div>
+      <label class="text-secondary" for="phone">餐廳電話:</label><input id="phone" style="display: block;" type="text"
+        placeholder="請輸入電話號碼" name="phone" required>
+    </div>
+    <div>
+      <label class="text-secondary" for="google_map">地圖位置:</label><input id="google_map" style="display: block;"
+        type="text" placeholder="請輸入Google_Map連結" name="google_map">
+    </div>
+    <div>
+      <label class="text-secondary" for="rating">評分等級:</label><input id="rating" style="display: block;" type="number"
+        placeholder="0" name="rating" max="5" min="0" step="0.1" required>
+    </div>
+    <div>
+      <label class="text-secondary" for="description">餐廳敘述:</label>
+      <textarea style="display: block;" id="description" placeholder="請輸入餐廳敘述" name="description" rows="5" cols="22"
+        required></textarea>
+    </div>
+    <div class="position">
+      <button type="submit">Create</button>
+    </div>
+  </form>
+</div>

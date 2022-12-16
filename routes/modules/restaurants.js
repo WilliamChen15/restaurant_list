@@ -14,18 +14,6 @@ router.get('/:restaurant_id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// //新增
-// //頁面
-// router.get('/create', (req, res) => {
-//   const restaurant = restaurantList.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-//   res.render('create', { restaurant })
-// })
-// //行為
-// router.post('/', (req, res) => {
-//   const restaurant = restaurantList.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-//   res.render('show', { restaurant })
-// })
-
 // //修改
 // //頁面
 // router.get('/:restaurant_id/edit', (req, res) => {

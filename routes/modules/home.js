@@ -12,6 +12,30 @@ router.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//新增
+//頁面
+router.get('/create', (req, res) => {
+  return Restaurant.find()
+    .lean()
+    .then(function (restaurants) {
+      const categories = restaurants.map(restaurant => restaurant.category).filter(function (category, index, array) {
+        return array.indexOf(category) === index  // 找首個分類的index，重複的因index不相等，不會回傳。
+      })
+      res.render('create', { categories })
+    }
+    )
+    .catch(error => console.log(error))
+})
+//行為
+router.post('/', (req, res) => {
+  const restaurant = req.body
+  return Restaurant.create(restaurant)
+    .then(() => {
+      console.log("done.")
+      res.redirect('/')
+    })
+})
+
 router.get('/search', (req, res) => {
   const keyword = req.query.keyword
   // Restaurant.find().or([{name : keyword},{category : keyword}]) //怎麼處理大小寫?
