@@ -4,11 +4,14 @@ const router = express.Router()
 
 const Restaurant = require('../../models/restaurant')
 
+let sort = "asc"
+
 router.get('/', (req, res) => {
-  Restaurant.find()
+  sort = req.query.sort ? req.query.sort : sort
+  return Restaurant.find()
     .lean()
-    .sort({ id: 'asc' }) // desc
-    .then(restaurants => res.render('index', { restaurants }))
+    .sort({ name: sort })
+    .then(restaurants => res.render('index', { restaurants, sort }))
     .catch(error => console.log(error))
 })
 
@@ -38,15 +41,12 @@ router.post('/', (req, res) => {
 
 router.get('/search', (req, res) => {
   const keyword = req.query.keyword
-  // Restaurant.find().or([{name : keyword},{category : keyword}]) //怎麼處理大小寫?
-  //   .lean()
-  //   .then(restaurants => ...)
-  Restaurant.find()
+  const regex = new RegExp(keyword, 'i')// i => 不分大小寫
+  sort = req.query.sort ? req.query.sort : sort
+  return Restaurant.find({ $or: [{ name: { $regex: regex } }, { category: { $regex: regex } }] })
     .lean()
-    .then(function (restaurants) {
-      results = restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.toLowerCase().includes(keyword.toLowerCase()))
-      res.render('index', { restaurants: results, keyword })
-    })
+    .sort({ name: sort })
+    .then(restaurants => res.render('index', { restaurants, keyword, sort }))
     .catch(error => console.log(error))
 })
 
