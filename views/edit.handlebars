@@ -1,0 +1,75 @@
+<form action="/restaurants/{{ restaurant._id }}?_method=PUT" method="POST">
+  <h1 class="mb-1 restaurant-show-title">
+    <input type="text" placeholder="請輸入餐廳名稱" name="name" value="{{ restaurant.name }}" required>
+  </h1>
+
+  <div class="edit-container">
+    <div class="row">
+      <div class="col-12 col-md-10 mx-auto">
+        <p class="mb-1">
+          <label class="text-secondary" for="rating">
+            <i class="fas fa-star fa-xs"></i>
+            評分：
+          </label>
+          <input id="rating" type="number" max="5" min="0" step="0.1" placeholder="0" name="rating"
+            value="{{ restaurant.rating }}" required>
+        </p>
+        <p class="mb-1">
+          <label class="text-secondary" for="category">
+            <i class="fas fa-utensils pr-2"></i>
+            類別：
+          </label>
+          <input type="text" placeholder="請輸入餐廳類別" list="category-list" id="category" name="category"
+            value="{{restaurant.category}}" required>
+          <datalist id="category-list">
+            {{#each categories}}
+            <option value="{{this}}"> {{this}} </option>
+            {{/each}}
+          </datalist>
+        </p>
+        <p class="mb-1">
+          <label class="text-secondary" for="location">
+            <i class="fas fa-map-marker-alt pr-2"></i>
+            地址：
+          </label>
+          <input id="location" type="text" placeholder="請輸入餐廳地址" name="location" value="{{ restaurant.location }}"
+            required>
+        </p>
+        <p class="mb-1">
+          <label class="text-secondary" for="google_map">
+            <i class="fas fa-location-arrow pr-2 fa-xs"></i>
+            地圖：
+          </label>
+          <input id="google_map" type="text" placeholder="請輸入Google_Map連結" name="google_map"
+            value="{{ restaurant.google_map }}" required>
+        </p>
+        <p class="mb-1">
+          <label class="text-secondary" for="phone">
+            <i class="fas fa-mobile-alt pr-2"></i>
+            電話：
+          </label>
+          <input id="phone" type="text" placeholder="請輸入電話號碼" name="phone" value="{{ restaurant.phone }}" required>
+        </p>
+        <p class="my-1">
+          <label id="description-label" class="text-secondary" for="description">
+            <i class="fas fa-book"></i>
+            敘述：
+          </label>
+          <textarea id="description" placeholder="請輸入餐廳敘述" name="description" rows="5" cols="22"
+            required>{{ restaurant.description }}</textarea>
+        </p>
+        <p class="mb-5">
+          <label class="text-secondary" for="image">
+            <i class="fa-solid fa-image"></i>
+            圖片：
+          </label>
+          <input id="image" type="text" placeholder="請輸入圖片網址" name="image" value="{{ restaurant.image }}" required>
+        </p>
+      </div>
+      <div class="position">
+        <button class="save-button" type="submit">Save</button>
+        <a href="/"><button>Back</button></a>
+      </div>
+    </div>
+  </div>
+</form>
