@@ -57,10 +57,13 @@ router.put('/:restaurant_id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// //刪除
-// router.delete('/:restaurant_id', (req, res) => {
-//   const restaurant = restaurantList.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-//   res.render('index', { restaurants : restaurantList })
-// })
+//刪除
+router.delete('/:restaurant_id', (req, res) => {
+  const id = req.params.restaurant_id
+  return Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
 
 module.exports = router
