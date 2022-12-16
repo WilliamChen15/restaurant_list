@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 //新增
 //頁面
-router.get('/create', (req, res) => {
+router.get('/create', (_req, res) => {
   return Restaurant.find()
     .lean()
     .then(function (restaurants) {
