@@ -10,8 +10,8 @@ require('./config/mongoose')
 const app = express()
 const port = 3000
 
-// setting template engine //樣板引擎
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+// setting template engine //樣板引擎 // 載入helper
+app.engine('handlebars', exphbs({ defaultLayout: 'main', helpers: { 'ifCond': function (currentSelection, selection) { return (currentSelection === selection) ? "selected" : ""; } } }))
 app.set('view engine', 'handlebars')
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
