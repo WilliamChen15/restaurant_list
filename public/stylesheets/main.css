@@ -20,6 +20,15 @@ header {
   filter: blur(3px);
 }
 
+.create-button {
+  font-size: 15px;
+  padding: 5px 25px;
+  border-radius: 15%;
+  border-width: 0;
+  color: snow;
+  background-color: skyblue;
+}
+
 .search-bar .search-bar-outer {
   margin: 0 auto;
   max-width: 680px;
@@ -107,4 +116,63 @@ header {
     height: auto;
   }
 
+}
+
+.restaurant-container {
+  margin-bottom: 30px;
+}
+
+.method {
+  display: flex;
+  justify-content: end;
+}
+
+.method-button {
+  border-radius: 10%;
+  margin-left: 10px;
+  background-color: black;
+  color: antiquewhite;
+}
+
+.method-button:hover {
+  background-color: whitesmoke;
+  color: black;
+}
+
+.edit-container {
+  display: flex;
+  justify-content: center;
+}
+
+.create-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.position {
+  display: flex;
+  justify-content: end;
+  margin-top: 12px;
+}
+
+input {
+  margin-top: 5px;
+}
+
+.save-button {
+  margin-right: 5px;
+}
+
+#description-label {
+  vertical-align: top;
+}
+
+.sort-mode {
+  justify-content: end;
+}
+
+#sort-button {
+  border-radius: 15%;
 }
