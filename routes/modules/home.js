@@ -5,13 +5,15 @@ const router = express.Router()
 const Restaurant = require('../../models/restaurant')
 
 let sort = "asc"
+let keyword = ""
 
 router.get('/', (req, res) => {
+  const currentRoute = '/'
   sort = req.query.sort ? req.query.sort : sort
   return Restaurant.find()
     .lean()
     .sort({ name: sort })
-    .then(restaurants => res.render('index', { restaurants, sort }))
+    .then(restaurants => res.render('index', { restaurants, sort, currentRoute }))
     .catch(error => console.log(error))
 })
 
@@ -30,7 +32,7 @@ router.get('/create', (_req, res) => {
     .catch(error => console.log(error))
 })
 //行為
-router.post('/', (req, res) => {
+router.post('/create', (req, res) => {
   const restaurant = req.body
   return Restaurant.create(restaurant)
     .then(() => {
@@ -40,13 +42,42 @@ router.post('/', (req, res) => {
 })
 
 router.get('/search', (req, res) => {
-  const keyword = req.query.keyword
+  keyword = req.query.keyword
+  if (!keyword.length) {
+    return Restaurant.find()
+      .lean()
+      .then(res.redirect('/'))
+      .catch(error => console.log(error))
+  }
+  sort = req.query.sort ? req.query.sort : sort
+  const currentRoute = '/search'
+  const regex = new RegExp(keyword, 'i')// i => 不分大小寫
+  return Restaurant.find({ $or: [{ name: { $regex: regex } }, { category: { $regex: regex } }] })
+    .lean()
+    .sort({ name: sort })
+    .then(restaurants => res.render('index', { restaurants, keyword, sort, currentRoute }))
+    .catch(error => console.log(error))
+})
+
+router.post('/', (req, res) => {
+  const currentRoute = '/'
+  sort = req.body.sort ? req.body.sort : sort
+  return Restaurant.find()
+    .lean()
+    .sort({ name: sort })
+    .then(restaurants => res.render('index', { restaurants, sort, currentRoute }))
+    .catch(error => console.log(error))
+})
+
+router.post('/search', (req, res) => {
+  const currentRoute = '/search'
+  sort = req.body.sort ? req.body.sort : sort
   const regex = new RegExp(keyword, 'i')// i => 不分大小寫
   sort = req.query.sort ? req.query.sort : sort
   return Restaurant.find({ $or: [{ name: { $regex: regex } }, { category: { $regex: regex } }] })
     .lean()
     .sort({ name: sort })
-    .then(restaurants => res.render('index', { restaurants, keyword, sort }))
+    .then(restaurants => res.render('index', { restaurants, keyword, sort, currentRoute }))
     .catch(error => console.log(error))
 })
 
