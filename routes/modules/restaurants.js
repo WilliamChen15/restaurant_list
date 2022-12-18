@@ -21,7 +21,7 @@ router.get('/:restaurant_id/edit', (req, res) => {
   return Restaurant.find()
     .lean()
     .then(function (restaurants) {
-      const restaurant = restaurants.find(item => item._id == id) // === 兩個都轉成Number還是抓不到，why? 
+      const restaurant = restaurants.find(item => String(item._id) === String(id))
       const categories = restaurants.map(restaurant => restaurant.category).filter(function (category, index, array) {
         return array.indexOf(category) === index
       })
