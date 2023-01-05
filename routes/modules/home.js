@@ -8,9 +8,10 @@ let sort = "asc"
 let keyword = ""
 
 router.get('/', (req, res) => {
+  const userId = req.user._id
   const currentRoute = '/'
   sort = req.query.sort ? req.query.sort : sort
-  return Restaurant.find()
+  return Restaurant.find({ userId })
     .lean()
     .sort({ name: sort })
     .then(restaurants => res.render('index', { restaurants, sort, currentRoute }))
@@ -34,6 +35,7 @@ router.get('/create', (_req, res) => {
 //行為
 router.post('/create', (req, res) => {
   const restaurant = req.body
+  restaurant.userId = req.user._id
   return Restaurant.create(restaurant)
     .then(() => {
       console.log("done.")

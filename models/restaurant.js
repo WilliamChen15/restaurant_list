@@ -38,5 +38,12 @@ const restaurantSchema = new Schema({
     type: String,
     required: true
   },
+  userId: {  // 加入關聯設定
+    type: Schema.Types.ObjectId,
+    ref: 'User',    // Mongoose 提供的 Populate 功能
+    
+    index: true,
+    required: true
+  }
 })
 module.exports = mongoose.model('Restaurant', restaurantSchema)

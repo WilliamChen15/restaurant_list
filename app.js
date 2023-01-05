@@ -27,6 +27,7 @@ app.use(methodOverride('_method'))
 // setting static files //靜態檔案
 app.use(express.static('public'))
 usePassport(app)
+
 // 將 request 導入路由器
 app.use(routes)
 
