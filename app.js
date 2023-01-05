@@ -7,6 +7,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 // 載入 method-override
 const methodOverride = require('method-override')
+const flash = require('connect-flash')
 const routes = require('./routes')
 require('./config/mongoose')
 const app = express()
@@ -27,7 +28,12 @@ app.use(methodOverride('_method'))
 // setting static files //靜態檔案
 app.use(express.static('public'))
 usePassport(app)
-
+app.use(flash()) 
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg')  
+  res.locals.warning_msg = req.flash('warning_msg')  
+  next()
+})
 // 將 request 導入路由器
 app.use(routes)
 
