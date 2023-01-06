@@ -11,11 +11,13 @@ const restaurantsList = require("../../restaurant.json").results
 
 const SEED_USER = [
   {
+    name: 'user1',
     email: 'user1@example.com',
     password: '12345678',
     ownedRestaurants: [0, 1, 2]
   },
   {
+    name: 'user2',
     email: 'user2@example.com',
     password: '12345678',
     ownedRestaurants: [3, 4, 5]
@@ -29,8 +31,9 @@ db.on("error", () => {
 db.once('open', () => {
   Promise.all(
     SEED_USER.map(user => {
-      const { email, password, ownedRestaurants } = user
+      const { name, email, password, ownedRestaurants } = user
       return User.create({
+        name,
         email,
         password: bcrypt.hashSync(password, 10) // (加密值,加鹽次數)
       })
