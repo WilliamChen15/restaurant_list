@@ -12,7 +12,8 @@ router.get('/login', (req, res) => {
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/users/login'
-}))
+})
+)
 
 // 註冊頁面
 router.get('/register', (req, res) => {
@@ -20,7 +21,7 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', (req, res) => {
-  const { name ,email, password, confirmPassword } = req.body
+  const { name, email, password, confirmPassword } = req.body
   const errors = []
   if (!email || !password || !confirmPassword) {
     errors.push({ message: '請確認完成必填欄位。' })

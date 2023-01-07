@@ -8,13 +8,14 @@ let sort = "asc"
 let keyword = ""
 
 router.get('/', (req, res) => {
+  const login = true
   const userId = req.user._id
   const currentRoute = '/'
   sort = req.query.sort ? req.query.sort : sort
   return Restaurant.find({ userId })
     .lean()
     .sort({ name: sort })
-    .then(restaurants => res.render('index', { restaurants, sort, currentRoute }))
+    .then(restaurants => res.render('index', { restaurants, sort, currentRoute, login }))
     .catch(error => console.log(error))
 })
 
@@ -34,7 +35,6 @@ router.get('/create', (_req, res) => {
 })
 //行為
 router.post('/create', (req, res) => {
-  const userId = req.user._id
   const restaurant = req.body
   restaurant.userId = req.user._id
   return Restaurant.create(restaurant)
@@ -45,6 +45,7 @@ router.post('/create', (req, res) => {
 })
 
 router.get('/search', (req, res) => {
+  const login = true
   keyword = req.query.keyword
   if (!keyword.length) {
     return res.redirect('/')
@@ -56,24 +57,26 @@ router.get('/search', (req, res) => {
   return Restaurant.find({ $or: [{ name: { $regex: regex } }, { category: { $regex: regex } }], userId })
     .lean()
     .sort({ name: sort })
-    .then(restaurants => res.render('index', { restaurants, keyword, sort, currentRoute }))
+    .then(restaurants => res.render('index', { restaurants, keyword, sort, currentRoute, login }))
     .catch(error => console.log(error))
 })
 
 // 首頁排序
 router.post('/', (req, res) => {
+  const login = true
   const userId = req.user._id
   const currentRoute = '/'
   sort = req.body.sort ? req.body.sort : sort
   return Restaurant.find({ userId })
     .lean()
     .sort({ name: sort })
-    .then(restaurants => res.render('index', { restaurants, sort, currentRoute }))
+    .then(restaurants => res.render('index', { restaurants, sort, currentRoute, login }))
     .catch(error => console.log(error))
 })
 
 // 搜尋排序
 router.post('/search', (req, res) => {
+  const login = true
   const userId = req.user._id
   const currentRoute = '/search'
   sort = req.body.sort ? req.body.sort : sort
@@ -82,7 +85,7 @@ router.post('/search', (req, res) => {
   return Restaurant.find({ $or: [{ name: { $regex: regex } }, { category: { $regex: regex } }], userId })
     .lean()
     .sort({ name: sort })
-    .then(restaurants => res.render('index', { restaurants, keyword, sort, currentRoute }))
+    .then(restaurants => res.render('index', { restaurants, keyword, sort, currentRoute, login }))
     .catch(error => console.log(error))
 })
 

@@ -129,7 +129,7 @@ header {
 
 .method-button {
   border-radius: 10%;
-  margin-left: 10px;
+  margin-right: 10px;
   background-color: black;
   color: antiquewhite;
 }
@@ -176,4 +176,17 @@ input {
 
 #sort-button {
   border-radius: 15%;
+}
+
+.logout-button {
+  font-size: 15px;
+  padding: 5px 25px;
+  border-radius: 15%;
+  border-width: 0;
+  color: snow;
+  background-color: firebrick;
+}
+
+.X {
+  color: red;
 }

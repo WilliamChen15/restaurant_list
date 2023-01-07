@@ -61,7 +61,6 @@ router.put('/:restaurant_id', (req, res) => {
 router.delete('/:restaurant_id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.restaurant_id
-
   return Restaurant.findOne({ _id, userId })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
