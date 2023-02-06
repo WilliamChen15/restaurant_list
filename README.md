@@ -27,7 +27,7 @@ git clone https://github.com/WilliamChen15/restaurant_list.git
 ### 移動到專案資料夾
 cd restaurant_list
 ### 安裝必要套件
-npm install ...
+npm install 
 ### 載入種子資料  
 npm run seed
 ### 開啟專案
