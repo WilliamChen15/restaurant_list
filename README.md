@@ -41,3 +41,9 @@ Bootstrap - 5.2.2
 Mongoose - 5.9.7  
 Method-override - 3.0.0  
 dotenv - 16.0.3  
+passport - 0.4.1  
+passport-facebook - 3.0.0  
+bcryptjs - 2.4.3  
+passport-local - 1.0.0  
+connect-flash - 0.1.1  
+express-session - 1.17.1  
