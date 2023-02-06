@@ -12,7 +12,7 @@ module.exports = app => {
     User.findOne({ email })
       .then(user => {
         if (!user) {
-          return done(null, false)
+          return done(null, false, req.flash('warning_msg', '帳號或密碼錯誤。'))
         }
         return bcrypt.compare(password, user.password).then(isMatch => {
           if (!isMatch) {

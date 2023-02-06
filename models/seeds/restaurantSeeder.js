@@ -1,5 +1,4 @@
 const bcrypt = require('bcryptjs')
-const { response } = require('express')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -7,7 +6,6 @@ const db = require('../../config/mongoose')
 const Restaurant = require('../restaurant')
 const User = require('../user')
 const restaurantsList = require("../../restaurant.json").results
-
 
 const SEED_USER = [
   {
@@ -28,30 +26,28 @@ db.on("error", () => {
   console.log("mongodb error!")
 })
 
-db.once('open', () => {
-  Promise.all(
-    SEED_USER.map(user => {
-      const { name, email, password, ownedRestaurants } = user
-      return User.create({
-        name,
-        email,
-        password: bcrypt.hashSync(password, 10) // (加密值,加鹽次數)
-      })
-        .then(user => {
-          const restaurants = ownedRestaurants.map(Index => {
-            const restaurant = restaurantsList[Index]
-            restaurant.userId = user._id
-            return restaurant
-
-          })
-          return Restaurant.create(restaurants)
+db.once('open', async () => {
+  try {
+    await Promise.all(
+      SEED_USER.map(async (user) => {
+        const { name, email, password, ownedRestaurants } = user
+        const createdUser = await User.create({
+          name,
+          email,
+          password: bcrypt.hashSync(password, 10) // (加密值,加鹽次數)
         })
-    })
-  )
-    .then(() => {
-      console.log('done.')
-      process.exit()
-    })
-    .catch(err => console.log(err))
-    .finally(() => db.close)
+        const restaurants = ownedRestaurants.map(Index => {
+          const restaurant = restaurantsList[Index]
+          restaurant.userId = createdUser._id
+          return restaurant
+        })
+        await Restaurant.create(restaurants)
+      })
+    )
+    console.log('done.')
+    process.exit()
+  }
+  catch (err) {
+    console.log(err)
+  }
 })
